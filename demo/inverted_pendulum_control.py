@@ -1,8 +1,7 @@
-import control as ctrl
 import numpy as np
 import matplotlib.pyplot as plt
-from control_env.InvertedPendulum import InvertedPendulum
-from time import time
+from control_env.Implement.InvertedPendulum import InvertedPendulum
+
 
 def main():
     M = 2.
@@ -14,10 +13,10 @@ def main():
     model = InvertedPendulum(M, m, l, x)
     for t in range(700):
         u = -K @ x
-        x = model.go(u, 0.01)
+        x = model(u, 0.01)
 
-    t, x = model.history()
-    plt.plot(t, x)
+    model.plot('Inverted Pendulum')
+    # plt.plot(t, x)
     plt.show()
 
 
