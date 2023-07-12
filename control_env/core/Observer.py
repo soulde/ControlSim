@@ -1,5 +1,5 @@
 import numpy as np
-from System import ContinuousSystem
+from control_env.core.System import ContinuousSystem
 from abc import ABC
 
 

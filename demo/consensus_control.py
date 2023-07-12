@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 from control_env.implement.NonLinearForcedPendulum import NonLinearForcedPendulum
 from control_env.implement.DistributedObserver import DistributedObserver
-
+from control_env.cartographer.Cartographer import Graph
+from tqdm import tqdm
 
 def build_A_matrix(a_table):
     A = np.zeros([len(a_table), len(a_table)])
@@ -35,7 +35,7 @@ def main():
     D = build_D_matrix(A_table)
     L = D - A
     B = build_B_matrix(leader_link_table)
-    print(L, B, A)
+
     leader = NonLinearForcedPendulum(np.array([-1, 2]))
     follower_list = []
     observer_list = []
@@ -43,13 +43,12 @@ def main():
     for i in range(len(A_table)):
         follower_list.append(NonLinearForcedPendulum(np.random.normal([0, 0], [1.57, 1])))
         observer_list.append(DistributedObserver(np.array([0, 0]), (L + B)[i], 6))
-        # print((L + B)[i])
+
     K = np.array([[4]])
     u = np.zeros((len(A), 1))
 
-    for i in range(1000):
+    for i in tqdm(range(2000)):
         theta_d = leader(np.array([0]), 0.01)
-        # print(u.shape)
         theta = np.array([item(u[i], 0.01) for i, item in enumerate(follower_list)])
 
         for j, item in zip(theta, observer_list):
@@ -57,13 +56,12 @@ def main():
 
         estimated = np.array(
             [item(u, 0.01) for i, item in enumerate(observer_list)])
-        # print(theta.shape, estimated.shape, )
         u = -(L + B) @ theta @ K - estimated @ K
-        # print(u)
-        # print(u.shape)
-    leader.plot()
+
+    graph = Graph("state", 2)
+    graph.plot_system_data(leader, 'leader')
     for i, item in enumerate(follower_list):
-        item.plot('follower_' + str(i))
+        graph.plot_system_data(item, 'follower ' + str(i))
     plt.show()
 
 

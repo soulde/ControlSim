@@ -45,7 +45,6 @@ class System(ABC):
     def plot(self, title=''):
         color_table = []
         t, x = self.history()
-        print(x.shape)
         fig, axs = plt.subplots(x.shape[1], 1, figsize=[12.8, 8])
         fig.suptitle(title)
         while len(self.state_names) < x.shape[1]:
