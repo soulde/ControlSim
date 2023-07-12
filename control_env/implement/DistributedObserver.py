@@ -1,5 +1,5 @@
 import numpy as np
-from control_env.Core.Observer import Observer
+from control_env.core.Observer import Observer
 
 
 class DistributedObserver(Observer):

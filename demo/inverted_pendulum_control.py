@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from control_env.Implement.InvertedPendulum import InvertedPendulum
+from control_env.implement.InvertedPendulum import InvertedPendulum
 
 
 def main():

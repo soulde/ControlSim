@@ -1,5 +1,5 @@
 import numpy as np
-from control_env.Core.System import ContinuousSystem
+from control_env.core.System import ContinuousSystem
 
 
 class NonLinearForcedPendulum(ContinuousSystem):

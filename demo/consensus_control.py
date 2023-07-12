@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from control_env.Implement.NonLinearForcedPendulum import NonLinearForcedPendulum
-from control_env.Implement.DistributedObserver import DistributedObserver
+from control_env.implement.NonLinearForcedPendulum import NonLinearForcedPendulum
+from control_env.implement.DistributedObserver import DistributedObserver
 
 
 def build_A_matrix(a_table):
