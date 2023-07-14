@@ -1,5 +1,4 @@
 import math
-
 import numpy as np
 import quaternion
 from control_env.implement.RigidBody import RigidBody

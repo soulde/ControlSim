@@ -3,5 +3,5 @@ numpy
 matplotlib
 pandas
 tqdm
-Quaternion
+numpy_quaternion
 control
