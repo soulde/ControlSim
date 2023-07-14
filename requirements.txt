@@ -2,4 +2,6 @@ scipy
 numpy
 matplotlib
 pandas
-
+tqdm
+Quaternion
+control

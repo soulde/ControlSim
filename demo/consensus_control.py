@@ -5,6 +5,7 @@ from control_env.implement.DistributedObserver import DistributedObserver
 from control_env.cartographer.Cartographer import Graph
 from tqdm import tqdm
 
+
 def build_A_matrix(a_table):
     A = np.zeros([len(a_table), len(a_table)])
 
@@ -51,12 +52,11 @@ def main():
         theta_d = leader(np.array([0]), 0.01)
         theta = np.array([item(u[i], 0.01) for i, item in enumerate(follower_list)])
 
-        for j, item in zip(theta, observer_list):
+        for j, item in zip(theta - theta_d, observer_list):
             item.observe(j)
 
-        estimated = np.array(
-            [item(u, 0.01) for i, item in enumerate(observer_list)])
-        u = -(L + B) @ theta @ K - estimated @ K
+        eit = np.array([item(u, 0.01) for i, item in enumerate(observer_list)])
+        u = -(L @ theta + B @ (theta - theta_d)) @ K - eit @ K
 
     graph = Graph("state", 2)
     graph.plot_system_data(leader, 'leader')
