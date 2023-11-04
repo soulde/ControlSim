@@ -12,3 +12,4 @@ class DistributedObserver(Observer):
 
         self.sys_fun = _sys_fun
         self.out_fun = lambda x, u, t: x[1:]
+

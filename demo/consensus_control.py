@@ -5,37 +5,16 @@ from control_env.implement.DistributedObserver import DistributedObserver
 from control_env.cartographer.Cartographer import Graph
 from tqdm import tqdm
 
-
-def build_A_matrix(a_table):
-    A = np.zeros([len(a_table), len(a_table)])
-
-    for i, item in enumerate(a_table):
-        for j in item:
-            A[i, j] = 1
-    return A
-
-
-def build_D_matrix(a_table):
-    D = np.zeros([len(a_table), len(a_table)])
-    for i, item in enumerate(a_table):
-        D[i, i] = len(item)
-    return D
-
-
-def build_B_matrix(link_table):
-    B = np.zeros([len(link_table), len(link_table)])
-    for item in link_table:
-        B[item, item] = 1
-    return B
+from control_env.implement import build_d_matrix, build_b_matrix, build_a_matrix
 
 
 def main():
     A_table = [[1, 2, 3], [4, 5], [6], [7], [9], [11], [8], [10], [], [], [], []]
     leader_link_table = [[0], [], [], [], [], [], [], [], [], [], [], []]
-    A = build_A_matrix(A_table)
-    D = build_D_matrix(A_table)
+    A = build_a_matrix(A_table)
+    D = build_d_matrix(A_table)
     L = D - A
-    B = build_B_matrix(leader_link_table)
+    B = build_b_matrix(leader_link_table)
 
     leader = NonLinearForcedPendulum(np.array([-1, 2]))
     follower_list = []

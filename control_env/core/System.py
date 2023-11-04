@@ -85,7 +85,7 @@ class ContinuousSystem(System):
             self._state = x_all[:, -1]
             self._sys_time += time
         else:
-            raise Exception('Simulate Error')
+            raise Exception('Simulate Error', ret)
         return self.out_fun(self._state, u, np.array([self._sys_time]))
 
 
